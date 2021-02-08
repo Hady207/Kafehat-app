@@ -11,9 +11,23 @@ import rootSaga from './rootSaga';
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
+  /**
+   * Blacklist state that we do not need/want to persist
+   */
+  blacklist: ['login'],
 };
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+const allReducer = (state, action) => {
+  if (action.type === 'RESET_APP') {
+    // selecting the reducers that you want to save from reseting
+    // eslint-disable-next-line no-param-reassign
+    state = undefined;
+  }
+  // console.log(allReducer)
+  return rootReducer(state, action);
+};
+
+const persistedReducer = persistReducer(persistConfig, allReducer);
 
 const middleware = [];
 const enhancers = [];

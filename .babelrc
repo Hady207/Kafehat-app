@@ -12,6 +12,7 @@
           "_atoms": "./app/components/atoms",
           "_molecules": "./app/components/molecules",
           "_organisms": "./app/components/organisms",
+          "_config":"./app/config",
           "_hooks": "./app/hooks",
           "_languages": "./app/languages",
           "_navigations": "./app/navigations",

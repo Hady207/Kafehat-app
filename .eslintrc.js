@@ -4,7 +4,7 @@ module.exports = {
   plugins: ['import', 'prettier'],
   rules: {
     'no-unused-vars': 'warn',
-    'react/jsx-filename-extension': [1, {extensions: ['.js', '.jsx']}],
+    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
     'import/no-unresolved': 'off',
     'react/jsx-props-no-spreading': 'off',
     'import/prefer-default-export': 'off',
@@ -20,6 +20,7 @@ module.exports = {
           _atoms: './app/components/atoms',
           _molecules: './app/components/molecules',
           _organisms: './app/components/organisms',
+          _config: './app/config',
           _hooks: './app/hooks',
           _languages: './app/languages',
           _navigations: './app/navigations',
