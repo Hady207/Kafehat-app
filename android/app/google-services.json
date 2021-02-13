@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "749897689433",
+    "project_id": "kafehat-47e92",
+    "storage_bucket": "kafehat-47e92.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:749897689433:android:2cabcd91866efcfc804448",
+        "android_client_info": {
+          "package_name": "com.kafehat_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "749897689433-tvmmfgi3ov7hlj8svmh4p54v4sfg885c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kafehat_app",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "749897689433-lesidll4rvhb0hd1b3cp9db654iggrpo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzgDejhJd9QRzRnijSfGT5X_gk0qtJtDY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "749897689433-lesidll4rvhb0hd1b3cp9db654iggrpo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

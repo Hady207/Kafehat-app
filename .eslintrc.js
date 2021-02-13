@@ -22,7 +22,7 @@ module.exports = {
           _organisms: './app/components/organisms',
           _config: './app/config',
           _hooks: './app/hooks',
-          _languages: './app/languages',
+          _localization: './app/localization',
           _navigations: './app/navigations',
           _redux: './app/redux',
           _screens: './app/screens',

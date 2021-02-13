@@ -22,19 +22,18 @@ const RootNavigator = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {accessToken ? (
-          <Stack.Screen
-            name="MainNavigator"
-            component={MainNavigator}
-            options={{ headerShown: false }}
-          />
-        ) : (
+        {!accessToken && (
           <Stack.Screen
             name="AuthStack"
             component={AuthStack}
             options={{ headerShown: false }}
           />
         )}
+        <Stack.Screen
+          name="AppStack"
+          component={MainNavigator}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
