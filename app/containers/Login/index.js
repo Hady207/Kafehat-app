@@ -2,19 +2,15 @@ import React, { useLayoutEffect, useState } from 'react';
 import { StyleSheet, View, Pressable } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
-// import { Input } from 'react-native-elements';
-import auth from '@react-native-firebase/auth';
-import {
-  GoogleSignin,
-  GoogleSigninButton,
-} from '@react-native-community/google-signin';
 
+import { GoogleSigninButton } from '@react-native-community/google-signin';
+import { LoginButton, AccessToken, LoginManager } from 'react-native-fbsdk';
 import { T, Input, Button } from '_atoms';
 import { onGoogleButtonPress } from '_utils/authUtils';
 import { LanguageModal } from '_molecules';
 import { Colors } from '_styles';
 import loginSelectors from './selectors';
-import { LoginTypes, LoginActions } from './reducer';
+import { LoginActions } from './reducer';
 
 // async function onGoogleButtonPress() {
 //   try {
@@ -61,12 +57,12 @@ const Login = () => {
     navigation.setOptions({
       headerLeft: (props) => (
         <Pressable style={{ marginLeft: 16 }} {...props} onPress={handleModal}>
-          <T title="language" />
+          <T id="language" />
         </Pressable>
       ),
       headerRight: (props) => (
         <Pressable style={{ marginRight: 16 }} {...props} onPress={handleSkip}>
-          <T title="Skip" />
+          <T id="skip" />
         </Pressable>
       ),
     });
@@ -100,7 +96,8 @@ const Login = () => {
             color={GoogleSigninButton.Color.Dark}
             onPress={handleGoogleSignin}
           />
-          <Button title="Continue with facebook" onPress={handleLogin} />
+          {/* <Button title="Continue with facebook" onPress={handleLogin} /> */}
+          <LoginButton />
         </View>
         <Pressable
           onPress={() => navigation.navigate('Signup')}
