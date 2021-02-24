@@ -1,10 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { T } from '_atoms';
 
 const index = () => {
   return (
     <View style={styles.screen}>
-      <Text style={styles.fontTitle}>Hadi Maher</Text>
+      <T title="Hadi Maher" />
     </View>
   );
 };

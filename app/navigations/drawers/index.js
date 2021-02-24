@@ -1,7 +1,8 @@
 import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import IonIcon from 'react-native-vector-icons/Ionicons';
-import Chat from '_screens/Chat';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import FriendsStack from '../stacks/FriendsStack';
 
 import CustomDrawer from './CustomDrawer';
 import HomeTab from '../Tabs/HomeTab';
@@ -30,19 +31,11 @@ const Main = () => {
         component={HomeTab}
       />
       <Drawer.Screen
-        name="Favorites"
+        name="Friends"
         options={{
-          drawerIcon: () => <IonIcon name="heart-outline" size={24} />,
+          drawerIcon: () => <FontAwesome5 name="user-friends" size={24} />,
         }}
-        component={Chat}
-      />
-      <Drawer.Screen
-        name="Logout"
-        options={{
-          drawerLabel: 'Logout',
-          drawerIcon: () => <IonIcon name="log-out-outline" size={24} />,
-        }}
-        component={Chat}
+        component={FriendsStack}
       />
     </Drawer.Navigator>
   );

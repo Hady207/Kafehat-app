@@ -1,14 +1,35 @@
 import React, { useLayoutEffect, useState } from 'react';
 import { StyleSheet, View, Pressable } from 'react-native';
-import { Divider } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
-import { T, Button, Input } from '_atoms';
-import { LanguageModal } from '_molecules';
 import { useSelector, useDispatch } from 'react-redux';
-import { Colors } from '_styles';
+// import { Input } from 'react-native-elements';
+import auth from '@react-native-firebase/auth';
+import {
+  GoogleSignin,
+  GoogleSigninButton,
+} from '@react-native-community/google-signin';
 
+import { T, Input, Button } from '_atoms';
+import { onGoogleButtonPress } from '_utils/authUtils';
+import { LanguageModal } from '_molecules';
+import { Colors } from '_styles';
 import loginSelectors from './selectors';
 import { LoginTypes, LoginActions } from './reducer';
+
+// async function onGoogleButtonPress() {
+//   try {
+//     // Get the users ID token
+//     const { idToken } = await GoogleSignin.signIn();
+
+//     // Create a Google credential with the token
+//     const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+
+//     // Sign-in the user with the credential
+//     return auth().signInWithCredential(googleCredential);
+//   } catch (error) {
+//     console.log('message', error);
+//   }
+// }
 
 const Login = () => {
   // navigation object
@@ -26,6 +47,16 @@ const Login = () => {
     // dispatch({ type: 'RESET_APP' });
   };
 
+  const handleGoogleSignin = async () => {
+    const result = await onGoogleButtonPress();
+    dispatch(LoginActions.googleLogin(result));
+  };
+
+  const handleSkip = () => {
+    dispatch(LoginActions.skip());
+    navigation.navigate('AppStack');
+  };
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerLeft: (props) => (
@@ -34,10 +65,7 @@ const Login = () => {
         </Pressable>
       ),
       headerRight: (props) => (
-        <Pressable
-          style={{ marginRight: 16 }}
-          {...props}
-          onPress={() => navigation.navigate('AppStack')}>
+        <Pressable style={{ marginRight: 16 }} {...props} onPress={handleSkip}>
           <T title="Skip" />
         </Pressable>
       ),
@@ -48,7 +76,7 @@ const Login = () => {
     <View style={styles.screen}>
       <LanguageModal visible={langModal} visibleFun={handleModal} />
       <View>
-        <T id="signin" value="ahmad" textStyle={styles.createText} />
+        <T id="signin" textStyle={styles.createText} />
       </View>
       <Input placeholderId="Email" value={email} onChangeText={setEmail} />
       <Input
@@ -63,10 +91,15 @@ const Login = () => {
         onPress={handleLogin}
         loading={loginIsLoading}
       />
-      {/* <Divider style={{ backgroundColor: 'blue' }} /> */}
+
       <View style={styles.subInfo}>
         <View style={styles.signInButton}>
-          <Button title="Continue with google" onPress={handleLogin} />
+          <GoogleSigninButton
+            style={{ width: 192, height: 48 }}
+            size={GoogleSigninButton.Size.Wide}
+            color={GoogleSigninButton.Color.Dark}
+            onPress={handleGoogleSignin}
+          />
           <Button title="Continue with facebook" onPress={handleLogin} />
         </View>
         <Pressable
@@ -100,7 +133,7 @@ const styles = StyleSheet.create({
 
   createAccount: {
     marginVertical: 15,
-    flex: 1,
+    backgroundColor: 'red',
   },
 
   createText: {

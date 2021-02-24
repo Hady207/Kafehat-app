@@ -1,20 +1,26 @@
 import React from 'react';
-import { View, StyleSheet, Text, Pressable } from 'react-native';
+import { View, StyleSheet, Pressable } from 'react-native';
+import { T } from '_atoms';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import MaterialCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import HomeStack from '../stacks/HomeStack';
-import CustomTab from './CustomTab';
+import MyTabBar from './MyTabBar';
 
 const BottomBar = createBottomTabNavigator();
 
+const AdvanceButton = (props) => (
+  <View style={styles.AdvanceButtonContainer}>
+    <View style={styles.buttonbg}>
+      <Pressable {...props} style={styles.buttonItself} />
+    </View>
+  </View>
+);
+
 const HomeTab = () => {
   return (
-    <BottomBar.Navigator
-      tabBarOptions={{
-        style: { position: 'absolute', bottom: 10, elevation: 0 },
-      }}>
+    <BottomBar.Navigator>
       <BottomBar.Screen
         name="Home"
         component={HomeStack}
@@ -38,6 +44,10 @@ const HomeTab = () => {
         name="Mood"
         component={HomeStack}
         options={{
+          tabBarButton: (props) => <AdvanceButton {...props} />,
+          tabBarLabel: ({ focused, color }) => (
+            <T id="mood" color={focused ? color : 'white'} />
+          ),
           tabBarIcon: ({ color, size }) => (
             <MaterialIcon name="mood" color={color} size={size} />
           ),
@@ -71,34 +81,51 @@ const HomeTab = () => {
 
 export default HomeTab;
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//   },
-//   navigatorContainer: {
-//     position: 'absolute',
-//     bottom: 0,
-//     left: 0,
-//     right: 0,
-//     // SHADOW
-//     shadowColor: '#000',
-//     shadowOffset: {
-//       width: 0,
-//       height: 1,
-//     },
-//     shadowOpacity: 0.22,
-//     shadowRadius: 2.22,
-//   },
-//   navigator: {
-//     borderTopWidth: 0,
-//     backgroundColor: 'transparent',
-//     elevation: 30,
-//   },
-//   xFillLine: {
-//     position: 'absolute',
-//     bottom: 0,
-//     left: 0,
-//     right: 0,
-//     height: 34,
-//   },
-// });
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  navigatorContainer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    // SHADOW
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+  },
+  navigator: {
+    borderTopWidth: 0,
+    backgroundColor: 'transparent',
+    elevation: 30,
+  },
+  xFillLine: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 34,
+  },
+
+  AdvanceButtonContainer: {
+    position: 'relative',
+    alignItems: 'center',
+    width: 75,
+  },
+  buttonbg: { position: 'absolute', top: 0 },
+  buttonItself: {
+    height: 50,
+    width: 50,
+    backgroundColor: '#E94F37',
+    borderRadius: 27,
+    justifyContent: 'center',
+    alignItems: 'center',
+    top: -22,
+    color: 'white',
+  },
+});

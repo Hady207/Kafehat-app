@@ -5,12 +5,12 @@ import { createStackNavigator } from '@react-navigation/stack';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 
-import HomeScreen from '_containers/Home';
-import CafeScreen from '_containers/Cafe';
-import CameraScreen from '_containers/Camera';
+import FriendsScreen from '_containers/Friends';
+import ChatScreen from '_containers/Chat';
 
 const Stack = createStackNavigator();
-const HomeStack = ({ navigation }) => {
+
+const FriendStack = ({ navigation }) => {
   const headerOptions = {
     headerTitle: '',
     headerStyle: { elevation: 0, shadowOpacity: 0 },
@@ -21,7 +21,7 @@ const HomeStack = ({ navigation }) => {
     ),
     headerRight: (props) => (
       <View style={styles.buttonContainer}>
-        <Pressable {...props} onPress={() => navigation.navigate('Camera')}>
+        <Pressable {...props} onPress={() => navigation.navigate('Cart')}>
           <EntypoIcon name="share-alternative" size={22} />
         </Pressable>
       </View>
@@ -36,17 +36,16 @@ const HomeStack = ({ navigation }) => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Home"
-        component={HomeScreen}
+        name="Friends"
+        component={FriendsScreen}
         options={headerOptions}
       />
-      <Stack.Screen name="Cafe" component={CafeScreen} />
-      <Stack.Screen name="Camera" component={CameraScreen} />
+      <Stack.Screen name="Chat" component={ChatScreen} />
     </Stack.Navigator>
   );
 };
 
-export default HomeStack;
+export default FriendStack;
 
 const styles = StyleSheet.create({
   buttonContainer: {

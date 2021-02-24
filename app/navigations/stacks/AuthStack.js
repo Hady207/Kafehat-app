@@ -3,12 +3,12 @@ import { Pressable, View, StyleSheet } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useSelector } from 'react-redux';
 
-import RootSelectors from '_screens/RootScreen/selectors';
+import RootSelectors from '_containers/RootScreen/selectors';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 
-import LoginScreen from '_screens/Login';
-import SignUpScreen from '_screens/Signup';
+import LoginScreen from '_containers/Login';
+import SignUpScreen from '_containers/Signup';
 
 const Stack = createStackNavigator();
 

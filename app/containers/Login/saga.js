@@ -1,11 +1,12 @@
 import { put, call, takeLatest } from 'redux-saga/effects';
 import { storageWrite } from '_utils/storageUtils';
-import { loginService } from '_services/AuthService';
-import { RootScreenActions } from '_screens/RootScreen/reducer';
+import { loginService, googleLoginService } from '_services/AuthService';
+import { RootScreenActions } from '_containers/RootScreen/reducer';
 import { LoginTypes, LoginActions } from './reducer';
 
 function* loginSaga(action) {
   try {
+    console.log('action', action);
     const response = yield call(loginService, action);
     console.log(response);
     if (response.ok) {
@@ -31,6 +32,31 @@ function* loginSaga(action) {
   }
 }
 
+function* googleLoginSaga(action) {
+  try {
+    const response = yield call(googleLoginService, action);
+    if (response.ok) {
+      yield call(storageWrite, 'accessToken', response.data?.token.accessToken);
+      yield call(
+        storageWrite,
+        'refreshToken',
+        response.data?.token.refreshToken,
+      );
+      yield put(
+        RootScreenActions.signIn(
+          response.data?.user,
+          response.data?.token.accessToken,
+          response.data?.token.refreshToken,
+        ),
+      );
+    }
+    yield put(LoginActions.loginSuccess());
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export default function* loginRootWacher() {
   yield takeLatest(LoginTypes.REQUEST_LOGIN, loginSaga);
+  yield takeLatest(LoginTypes.GOOGLE_LOGIN, googleLoginSaga);
 }

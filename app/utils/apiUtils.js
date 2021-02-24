@@ -3,7 +3,8 @@ import { Config } from '_config';
 import { storageRead, storageWrite } from './storageUtils';
 
 export const api = create({
-  baseURL: Config.API_DEV_URL,
+  // baseURL: Config.API_DEV_URL,
+  baseURL: Config.API_MICRO_DEV_URL,
 });
 
 // // Add a request interceptor
@@ -12,11 +13,9 @@ api.axiosInstance.interceptors.request.use(
     // Do something before request is sent
     const accessToken = await storageRead('accessToken');
     if (accessToken) {
-      console.log('inside access token');
       // eslint-disable-next-line no-param-reassign
       config.headers['Authorization'] = `Bearer ${accessToken}`;
     }
-    console.log('interceptors', config);
     return config;
   },
   (error) => {
@@ -44,7 +43,7 @@ api.axiosInstance.interceptors.response.use(
 
       if (response.ok) {
         await storageWrite('accessToken', response.data.accessToken);
-        console.log('accessToken refreshed');
+
         return api.axiosInstance(originalRequest);
       }
     }

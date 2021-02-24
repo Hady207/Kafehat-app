@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Input } from 'react-native-elements';
 import { useTranslation } from 'react-i18next';
 

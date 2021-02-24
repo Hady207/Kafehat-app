@@ -5,7 +5,7 @@ import RootNavigator from '_navigations';
 import {
   RootScreenTypes,
   RootScreenActions,
-} from '_screens/RootScreen/reducer';
+} from '_containers/RootScreen/reducer';
 
 const RootScreen = () => {
   const dispatch = useDispatch();

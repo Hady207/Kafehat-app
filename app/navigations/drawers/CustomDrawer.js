@@ -1,34 +1,34 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Pressable, Switch } from 'react-native';
-import { T } from '_atoms';
-import { Avatar, Icon } from 'react-native-elements';
-import IonIcon from 'react-native-vector-icons/Ionicons';
-import { useSelector, useDispatch } from 'react-redux';
-import RootSelectors from '_screens/RootScreen/selectors';
 import {
   DrawerContentScrollView,
   DrawerItemList,
 } from '@react-navigation/drawer';
-import {
-  RootScreenTypes,
-  RootScreenActions,
-} from '_screens/RootScreen/reducer';
+
+import { Avatar, Icon } from 'react-native-elements';
+import IonIcon from 'react-native-vector-icons/Ionicons';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { T } from '_atoms';
+import { LanguageModal } from '_molecules';
+import { RootScreenActions } from '_containers/RootScreen/reducer';
+import RootSelectors from '_containers/RootScreen/selectors';
 
 const CustomDrawer = (props) => {
   const [isSwitchOn, setIsSwitchOn] = useState(false);
-  const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
+  const [langModal, setLangModal] = useState(false);
   const { userProfile } = useSelector(RootSelectors);
   const dispatch = useDispatch();
+
+  const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
+  const handleModal = () => setLangModal((prevValue) => !prevValue);
+
   return (
     <DrawerContentScrollView {...props}>
       {userProfile && (
         <Pressable style={styles.profileSection}>
-          <Avatar
-            rounded
-            size="large"
-            source={{ uri: 'https://source.unsplash.com/random/800x600' }}
-          />
-          <T title={userProfile?.username} />
+          <Avatar rounded size="large" source={{ uri: userProfile?.picture }} />
+          <T title={userProfile?.name} />
         </Pressable>
       )}
       <DrawerItemList {...props} />
@@ -45,12 +45,16 @@ const CustomDrawer = (props) => {
           value={isSwitchOn}
         />
       </View>
+      <Pressable style={{ marginLeft: 16 }} {...props} onPress={handleModal}>
+        <T id="language" />
+      </Pressable>
       <Pressable
         onPress={() => dispatch(RootScreenActions.signOut())}
         style={styles.logoutButton}>
         <IonIcon name="log-out-outline" size={24} />
-        <T title="logout" />
+        <T id="logout" />
       </Pressable>
+      <LanguageModal visible={langModal} visibleFun={handleModal} />
     </DrawerContentScrollView>
   );
 };
