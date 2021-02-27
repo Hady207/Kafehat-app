@@ -1,9 +1,9 @@
 import { createActions } from 'reduxsauce';
 
 export const { Types: HomeTypes, Creators: HomeActions } = createActions({
-  fetchRequest: null,
-  fetchSuccess: ['cafes'],
-  fetchFail: ['error'],
+  fetchHomeRequest: null,
+  fetchHomeSuccess: ['cafes'],
+  fetchHomeFail: ['error'],
 });
 
 export const initalState = {
@@ -29,12 +29,12 @@ const failedCafeRequest = (state, { error }) => ({
 
 export const homeReducer = (state = initalState, action) => {
   switch (action.type) {
-    case HomeTypes.FETCH_REQUEST:
+    case HomeTypes.FETCH_HOME_REQUEST:
       return fetchCafeRequest(state);
-    case HomeTypes.FETCH_SUCCESS:
+    case HomeTypes.FETCH_HOME_SUCCESS:
       return successCafeRequest(state, action);
-    case HomeTypes.FETCH_FAIL:
-      return failedCafeRequest;
+    case HomeTypes.FETCH_HOME_FAIL:
+      return failedCafeRequest(state, action);
     default:
       return state;
   }

@@ -3,8 +3,8 @@ import { Config } from '_config';
 import { storageRead, storageWrite } from './storageUtils';
 
 export const api = create({
-  // baseURL: Config.API_DEV_URL,
-  baseURL: Config.API_MICRO_DEV_URL,
+  baseURL: Config.API_DEV_URL,
+  // baseURL: Config.API_MICRO_DEV_URL,
 });
 
 // // Add a request interceptor

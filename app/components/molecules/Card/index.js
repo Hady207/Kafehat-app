@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, ImageBackground, View } from 'react-native';
+import { StyleSheet, ImageBackground, View, Pressable } from 'react-native';
 
 import { T, Box } from '_atoms';
 import { Colors } from '_styles';
@@ -11,12 +11,13 @@ const Card = ({
   textStyle,
   boxTextStyle,
   image,
-  box,
+  cardBody,
   id,
   title,
+  onPress,
 }) => {
   return (
-    <View style={[styles.card, cardStyle]}>
+    <Pressable onPress={onPress} style={[styles.card, cardStyle]}>
       <Box boxStyle={boxStyle}>
         {image ? (
           <ImageBackground style={styles.image} source={{ uri: image }}>
@@ -26,12 +27,12 @@ const Card = ({
           <T textStyle={textStyle} id={id} title={title} />
         )}
       </Box>
-      {box && (
+      {cardBody && (
         <View style={styles.box}>
           <T textStyle={boxTextStyle} id={id} title={title} />
         </View>
       )}
-    </View>
+    </Pressable>
   );
 };
 

@@ -5,12 +5,13 @@ import { HomeTypes, HomeActions } from './reducer';
 function* getHomeSaga() {
   try {
     const response = yield call(getHomeCafes);
-    yield put(HomeActions.fetchSuccess(response.data));
+    yield put(HomeActions.fetchHomeSuccess(response.data.result));
   } catch (error) {
-    console.log(error);
+    console.log('error', error);
+    yield put(HomeActions.fetchHomeFail(error));
   }
 }
 
 export default function* homeRootWatcher() {
-  yield takeLatest(HomeTypes.FETCH_REQUEST, getHomeSaga);
+  yield takeLatest(HomeTypes.FETCH_HOME_REQUEST, getHomeSaga);
 }

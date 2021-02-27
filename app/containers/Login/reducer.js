@@ -4,7 +4,7 @@ import immer from 'immer';
 export const { Types: LoginTypes, Creators: LoginActions } = createActions({
   requestLogin: ['email', 'password'],
   googleLogin: ['userInfo'],
-  facebookLogin: ['userInfo'],
+  facebookLogin: ['facebookId'],
   loginSuccess: null,
   skip: null,
   loginFail: ['errorMessage'],
@@ -19,8 +19,8 @@ export const initalState = {
 export const loginReducer = (state = initalState, action) => {
   switch (action.type) {
     case LoginTypes.REQUEST_LOGIN:
-      return { ...state, loginIsLoading: true };
     case LoginTypes.GOOGLE_LOGIN:
+    case LoginTypes.FACEBOOK_LOGIN:
       return { ...state, loginIsLoading: true };
     case LoginTypes.SKIP:
       return { ...state, skipLogin: true };

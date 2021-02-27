@@ -1,6 +1,7 @@
 import React from 'react';
 import { Pressable, View, StyleSheet } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { createSharedElementStackNavigator } from 'react-navigation-shared-element';
 
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
@@ -9,7 +10,7 @@ import HomeScreen from '_containers/Home';
 import CafeScreen from '_containers/Cafe';
 import CameraScreen from '_containers/Camera';
 
-const Stack = createStackNavigator();
+const Stack = createSharedElementStackNavigator();
 const HomeStack = ({ navigation }) => {
   const headerOptions = {
     headerTitle: '',
@@ -21,7 +22,7 @@ const HomeStack = ({ navigation }) => {
     ),
     headerRight: (props) => (
       <View style={styles.buttonContainer}>
-        <Pressable {...props} onPress={() => navigation.navigate('Camera')}>
+        <Pressable {...props}>
           <EntypoIcon name="share-alternative" size={22} />
         </Pressable>
       </View>
@@ -40,8 +41,20 @@ const HomeStack = ({ navigation }) => {
         component={HomeScreen}
         options={headerOptions}
       />
-      <Stack.Screen name="Cafe" component={CafeScreen} />
-      <Stack.Screen name="Camera" component={CameraScreen} />
+      <Stack.Screen
+        name="Cafe"
+        component={CafeScreen}
+        sharedElementsConfig={(route, otherRoute, showing) => {
+          return [
+            {
+              id: route.params.id,
+              animation: 'fade',
+              resize: 'auto',
+            },
+          ];
+        }}
+      />
+      {/* <Stack.Screen name="Camera" component={CameraScreen} /> */}
     </Stack.Navigator>
   );
 };

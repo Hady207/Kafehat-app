@@ -1,13 +1,7 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Pressable,
-  StyleSheet,
-} from 'react-native';
+import { View, Text, Pressable, StyleSheet } from 'react-native';
 
-function MyTabBar({ state, descriptors, navigation }) {
+const MyTabBar = ({ state, descriptors, navigation }) => {
   const focusedOptions = descriptors[state.routes[state.index].key].options;
 
   if (focusedOptions.tabBarVisible === false) {
@@ -15,20 +9,7 @@ function MyTabBar({ state, descriptors, navigation }) {
   }
 
   return (
-    <View
-      style={{
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'grey',
-        alignSelf: 'center',
-        position: 'absolute',
-        bottom: 10,
-        width: '100%',
-        height: '10%',
-        marginLeft: 100,
-        borderRadius: 10,
-      }}>
+    <View style={styles.barContainer}>
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
 
@@ -38,6 +19,8 @@ function MyTabBar({ state, descriptors, navigation }) {
             : options.title !== undefined
             ? options.title
             : route.name;
+
+        const TabIcon = options.tabBarIcon;
 
         const isFocused = state.index === index;
 
@@ -69,8 +52,11 @@ function MyTabBar({ state, descriptors, navigation }) {
             testID={options.tabBarTestID}
             onPress={onPress}
             onLongPress={onLongPress}
-            style={{ flex: 1, alignItems: 'center' }}>
+            style={styles.barButton}>
             {/* {options.tabBarIcon && options.tabBarIcon()} */}
+
+            <TabIcon />
+
             <Text style={{ color: isFocused ? '#673ab7' : '#222' }}>
               {label}
             </Text>
@@ -79,13 +65,29 @@ function MyTabBar({ state, descriptors, navigation }) {
       })}
     </View>
   );
-}
+};
 
 export default MyTabBar;
 
 const styles = StyleSheet.create({
-  container: {
+  barContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'white',
+    alignSelf: 'center',
+    position: 'absolute',
+    bottom: 10,
+    width: '100%',
+    height: '10%',
+    marginLeft: 100,
+    borderRadius: 10,
+  },
+  barButton: {
     flex: 1,
+    alignItems: 'center',
+    borderTopColor: 'red',
+    borderTopWidth: 2,
   },
   navigatorContainer: {
     position: 'absolute',

@@ -1,5 +1,6 @@
 export { default as HeaderList } from './HeaderList';
 export { default as CafesList } from './CafesList';
+export { default as CafeItemDetail } from './CafeItemDetail';
 
 // export * as Home from './Home';
 

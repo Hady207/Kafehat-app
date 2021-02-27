@@ -5,12 +5,12 @@ import { FriendsTypes, FriendsActions } from './reducer';
 function* getFriendSaga() {
   try {
     const response = yield call(listFriendsService);
-    yield put(FriendsActions.fetchSuccess(response.data?.friends));
+    yield put(FriendsActions.fetchFriendsSuccess(response.data?.friends));
   } catch (error) {
-    yield put(FriendsActions.fetchFail(error.message));
+    yield put(FriendsActions.fetchFriendsFail(error.message));
   }
 }
 
 export default function* rootSaga() {
-  yield takeLatest(FriendsTypes.FETCH_REQUEST, getFriendSaga);
+  yield takeLatest(FriendsTypes.FETCH_FRIENDS_REQUEST, getFriendSaga);
 }

@@ -1,6 +1,11 @@
 import React, { useRef, useState } from 'react';
-import { Pressable } from 'react-native';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Pressable,
+} from 'react-native';
 import { RNCamera } from 'react-native-camera';
 
 const Camera = () => {

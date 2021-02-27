@@ -13,7 +13,7 @@ const RootScreen = () => {
   useEffect(() => {
     // Fetch the token from storage then navigate to our appropriate place
     const bootstrapAsync = async () => {
-      dispatch(RootScreenActions.startUp());
+      // dispatch(RootScreenActions.startUp());
       let accessToken;
       try {
         accessToken = await storageRead('accessToken');
@@ -29,6 +29,7 @@ const RootScreen = () => {
     };
 
     bootstrapAsync();
+    console.log('root useEffect called');
   }, [dispatch]);
 
   return <RootNavigator />;

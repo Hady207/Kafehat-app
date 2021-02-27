@@ -4,27 +4,31 @@ import { StyleSheet, View, Image, FlatList, Pressable } from 'react-native';
 import { Avatar } from 'react-native-elements';
 import { T } from '_atoms';
 import { Colors } from '_styles';
-import firendsSelector from './selectors';
+
+import friendsSelector from './selectors';
 import { FriendsActions } from './reducer';
 
-const FriendsCard = ({ item, navigation }) => (
-  <Pressable
-    onPress={() => navigation.navigate('Chat', { id: item.id })}
-    style={styles.card}>
-    <Avatar
-      rounded
-      size="small"
-      source={{ uri: 'https://source.unsplash.com/random/800x600' }}
-    />
-    <T title={item.name} />
-  </Pressable>
-);
+const FriendsCard = ({ item, navigation }) => {
+  return (
+    <Pressable
+      onPress={() => navigation.navigate('Chat', { email: item.email })}
+      style={styles.card}>
+      <Avatar
+        rounded
+        size="small"
+        source={{ uri: 'https://source.unsplash.com/random/800x600' }}
+      />
+      <T title={item.name} />
+    </Pressable>
+  );
+};
 
 const Friends = ({ navigation }) => {
-  const { friends, isLoading } = useSelector(firendsSelector);
+  const { friends, isLoading } = useSelector(friendsSelector);
+
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(FriendsActions.fetchRequest());
+    dispatch(FriendsActions.fetchFriendsRequest());
   }, [dispatch]);
   return (
     <View style={styles.screen}>

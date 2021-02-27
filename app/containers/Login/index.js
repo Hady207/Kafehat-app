@@ -33,7 +33,7 @@ const Login = () => {
   const [langModal, setLangModal] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { loginIsLoading, errorMessage } = useSelector(loginSelectors);
+  const { loginIsLoading } = useSelector(loginSelectors);
   const dispatch = useDispatch();
 
   const handleModal = () => setLangModal((prevValue) => !prevValue);
@@ -46,6 +46,15 @@ const Login = () => {
   const handleGoogleSignin = async () => {
     const result = await onGoogleButtonPress();
     dispatch(LoginActions.googleLogin(result));
+  };
+
+  const handleFacebookSignin = async () => {
+    try {
+      const resultToken = await AccessToken.getCurrentAccessToken();
+      dispatch(LoginActions.facebookLogin(resultToken));
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleSkip = () => {
@@ -96,8 +105,12 @@ const Login = () => {
             color={GoogleSigninButton.Color.Dark}
             onPress={handleGoogleSignin}
           />
-          {/* <Button title="Continue with facebook" onPress={handleLogin} /> */}
-          <LoginButton />
+
+          <LoginButton
+            publishPermissions={['email']}
+            onLogoutFinished={() => console.log('logout.')}
+            onLoginFinished={handleFacebookSignin}
+          />
         </View>
         <Pressable
           onPress={() => navigation.navigate('Signup')}
